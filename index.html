@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soirée de rentrée — Paris Comm' Sup</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0b0b10;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{width:min(520px,100%);background:#15151d;border:1px solid #292936;border-radius:24px;padding:32px;box-shadow:0 20px 60px #0008}
+.badge{display:inline-block;background:#ff1688;color:#fff;font-weight:800;padding:8px 12px;border-radius:999px;font-size:12px}
+h1{font-size:42px;line-height:.95;margin:22px 0 10px;text-transform:uppercase}
+.accent{color:#ff1688}.sub{color:#bdbdc8;margin-bottom:24px}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:20px 0 28px}
+.box{background:#0e0e14;border-radius:14px;padding:14px 5px;text-align:center}
+.num{font-size:27px;font-weight:900}.label{font-size:10px;color:#92929e;text-transform:uppercase;margin-top:4px}
+.info{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #2a2a35;border-bottom:1px solid #2a2a35;padding:15px 0;margin-bottom:22px;font-weight:700}
+form{display:grid;gap:12px} input{width:100%;background:#0e0e14;border:1px solid #343441;color:#fff;border-radius:12px;padding:15px;font-size:15px}button{border:0;border-radius:12px;padding:16px;background:#ff1688;color:#fff;font-size:16px;font-weight:900;cursor:pointer}
+#success{display:none;background:#162d22;border:1px solid #2f6b4b;padding:15px;border-radius:12px;margin-top:15px;color:#bdf3d0}
+.note{font-size:11px;color:#777783;text-align:center;margin-top:18px}
+</style>
+</head>
+<body>
+<main class="card">
+  <span class="badge">PARIS COMM' SUP</span>
+  <h1>TA RENTRÉE<br><span class="accent">COMMENCE ICI.</span></h1>
+  <p class="sub">Rencontre de nouvelles personnes · Découvre les associations · Profite de la soirée</p>
+
+  <div class="count">
+    <div class="box"><div class="num" id="days">00</div><div class="label">Jours</div></div>
+    <div class="box"><div class="num" id="hours">00</div><div class="label">Heures</div></div>
+    <div class="box"><div class="num" id="mins">00</div><div class="label">Minutes</div></div>
+    <div class="box"><div class="num" id="secs">00</div><div class="label">Secondes</div></div>
+  </div>
+
+  <div class="info"><span>JEUDI 15 OCTOBRE</span><span>18H → 23H</span></div>
+
+  <form id="form">
+    <input required placeholder="Prénom" autocomplete="off">
+    <input required placeholder="Nom" autocomplete="off">
+    <input required type="email" placeholder="Adresse e-mail" autocomplete="off">
+    <button type="submit">JE M'INSCRIS</button>
+  </form>
+  <div id="success">Inscription enregistrée pour la démonstration.</div>
+  <div class="note">MAQUETTE DE PROJET ÉTUDIANT — aucune donnée n'est envoyée.</div>
+</main>
+
+<script>
+const target = new Date("2026-10-15T18:00:00+02:00").getTime();
+function update(){
+  let d = Math.max(0,target-Date.now());
+  const days=Math.floor(d/86400000); d%=86400000;
+  const hours=Math.floor(d/3600000); d%=3600000;
+  const mins=Math.floor(d/60000); d%=60000;
+  const secs=Math.floor(d/1000);
+  document.getElementById("days").textContent=String(days).padStart(2,"0");
+  document.getElementById("hours").textContent=String(hours).padStart(2,"0");
+  document.getElementById("mins").textContent=String(mins).padStart(2,"0");
+  document.getElementById("secs").textContent=String(secs).padStart(2,"0");
+}
+update(); setInterval(update,1000);
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  document.getElementById("success").style.display="block";
+  e.target.reset();
+});
+</script>
+</body>
+</html>
